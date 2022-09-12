@@ -52,5 +52,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/tw-agenda-entidades"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tw-agenda-repositorios"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
