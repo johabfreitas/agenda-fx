@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory ?>
 
 <VBox maxHeight="420.0" maxWidth="600.0" minHeight="420.0" minWidth="600.0" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.johabfreitas.agenda.fx.MainController">
    <children>
@@ -23,9 +24,21 @@
          <children>
             <TableView fx:id="tabelaContatos" layoutX="9.0" layoutY="12.0" prefHeight="154.0" prefWidth="583.0">
               <columns>
-                <TableColumn editable="false" prefWidth="266.0" text="Nome" />
-                <TableColumn editable="false" prefWidth="122.0" text="Idade" />
-                  <TableColumn editable="false" prefWidth="193.0" text="Telefone" />
+                <TableColumn editable="false" prefWidth="266.0" text="Nome">
+                	<cellValueFactory>
+                		<PropertyValueFactory property="nome" />
+                	</cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" prefWidth="122.0" text="Idade">
+                	<cellValueFactory>
+                		<PropertyValueFactory property="idade"/>
+                	</cellValueFactory>
+                </TableColumn>
+                  <TableColumn editable="false" prefWidth="193.0" text="Telefone">
+                  	<cellValueFactory>
+                  		<PropertyValueFactory property="telefone" />
+                  	</cellValueFactory>
+                  </TableColumn>
               </columns>
             </TableView>
             <Button fx:id="botaoIncluir" layoutX="9.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Incluir" />
@@ -33,7 +46,7 @@
             <Button fx:id="botaoExcluir" layoutX="288.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Excluir" />
          </children>
       </Pane>
-      <TitledPane collapsible="false" prefHeight="172.0" prefWidth="600.0" text="Informações de contato">
+      <TitledPane collapsible="false" prefHeight="166.0" prefWidth="600.0" text="Informações de contato">
          <content>
             <GridPane>
               <columnConstraints>
