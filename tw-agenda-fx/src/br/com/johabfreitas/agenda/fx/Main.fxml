@@ -44,7 +44,7 @@
             </TableView>
             <Button fx:id="botaoIncluir" layoutX="9.0" layoutY="171.0" mnemonicParsing="false" onAction="#botaoIncluir_Action" prefHeight="25.0" prefWidth="130.0" text="Incluir" />
             <Button fx:id="botaoAlterar" layoutX="150.0" layoutY="171.0" mnemonicParsing="false" onAction="#botaoAlterar_Action" prefHeight="25.0" prefWidth="130.0" text="Alterar" />
-            <Button fx:id="botaoExcluir" layoutX="288.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Excluir" />
+            <Button fx:id="botaoExcluir" layoutX="288.0" layoutY="171.0" mnemonicParsing="false" onAction="#botaoExcluir_Action" prefHeight="25.0" prefWidth="130.0" text="Excluir" />
          </children>
       </Pane>
       <TitledPane collapsible="false" prefHeight="166.0" prefWidth="600.0" text="Informações de contato">

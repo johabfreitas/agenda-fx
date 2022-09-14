@@ -2,18 +2,22 @@ package br.com.johabfreitas.agenda.fx;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import br.com.johabfreitas.agenda.entidades.Contato;
 import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorio;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+//import javafx.beans.value.ChangeListener;
+//import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -41,9 +45,9 @@ public class MainController implements Initializable {
 	private Button botaoSalvar;
 	@FXML
 	private Button botaoCancelar;
-	
+
 	private Boolean ehIncluir;
-	
+
 	private Contato contatoSelecionado;
 
 	@Override
@@ -61,27 +65,28 @@ public class MainController implements Initializable {
 //				}				
 //			}
 //		});
-		this.tabelaContatos.getSelectionModel().selectedItemProperty().addListener((observador, contatoAntigo, contatoNovo) -> {
-			if(contatoNovo != null) {
-				txfNome.setText(contatoNovo.getNome());
-				txfIdade.setText(String.valueOf(contatoNovo.getIdade()));
-				txfTelefone.setText(contatoNovo.getTelefone());
-				this.contatoSelecionado = contatoNovo;
-			}
-		});
-		
+		this.tabelaContatos.getSelectionModel().selectedItemProperty()
+				.addListener((observador, contatoAntigo, contatoNovo) -> {
+					if (contatoNovo != null) {
+						txfNome.setText(contatoNovo.getNome());
+						txfIdade.setText(String.valueOf(contatoNovo.getIdade()));
+						txfTelefone.setText(contatoNovo.getTelefone());
+						this.contatoSelecionado = contatoNovo;
+					}
+				});
+
 		carregarTabelaContatos();
 
 	}
-	
-	public void botaoIncluir_Action(){
+
+	public void botaoIncluir_Action() {
 		this.ehIncluir = true;
 		this.txfNome.setText("");
 		this.txfIdade.setText("");
 		this.txfTelefone.setText("");
 		habilitarEdicaoAgenda(true);
 	}
-	
+
 	public void botaoAlterar_Action() {
 		habilitarEdicaoAgenda(true);
 		this.ehIncluir = false;
@@ -89,19 +94,34 @@ public class MainController implements Initializable {
 		this.txfIdade.setText(Integer.toString(this.contatoSelecionado.getIdade()));
 		this.txfTelefone.setText(this.contatoSelecionado.getTelefone());
 	}
-	
+
+	public void botaoExcluir_Action() {
+		Alert confirmacao = new Alert(AlertType.CONFIRMATION);
+		confirmacao.setTitle("Confirmação");
+		confirmacao.setHeaderText("Confirmação da exclusão do contato");
+		confirmacao.setContentText("Tem certeza de que deseja excluir este contato?");
+		Optional<ButtonType> resultadoConfirmacao = confirmacao.showAndWait();
+		if (resultadoConfirmacao.isPresent() && resultadoConfirmacao.get() == ButtonType.OK) {
+			AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorio();
+			repositorioContato.excluir(this.contatoSelecionado);
+			carregarTabelaContatos();
+			this.tabelaContatos.getSelectionModel().selectFirst();
+		}
+
+	}
+
 	public void boataoCancelar_Action() {
 		habilitarEdicaoAgenda(false);
 		this.tabelaContatos.getSelectionModel().selectFirst();
 	}
-	
+
 	public void botaoSalvar_Action() {
 		AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorio();
 		Contato contato = new Contato();
 		contato.setNome(txfNome.getText());
 		contato.setIdade(Integer.parseInt(txfIdade.getText()));
 		contato.setTelefone(txfTelefone.getText());
-		if(this.ehIncluir) {
+		if (this.ehIncluir) {
 			repositorioContato.inserir(contato);
 		} else {
 			repositorioContato.atualizar(contato);
@@ -124,7 +144,7 @@ public class MainController implements Initializable {
 		ObservableList<Contato> contatosObervableList = FXCollections.observableArrayList(contatos);
 		this.tabelaContatos.getItems().setAll(contatosObervableList);
 	}
-	
+
 	private void habilitarEdicaoAgenda(Boolean edicaoEstaHabilitada) {
 		this.txfNome.setDisable(!edicaoEstaHabilitada);
 		this.txfIdade.setDisable(!edicaoEstaHabilitada);
