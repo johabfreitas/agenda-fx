@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.cell.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
@@ -31,7 +32,7 @@
                 </TableColumn>
                 <TableColumn editable="false" prefWidth="122.0" text="Idade">
                 	<cellValueFactory>
-                		<PropertyValueFactory property="idade"/>
+                		<PropertyValueFactory property="idade" />
                 	</cellValueFactory>
                 </TableColumn>
                   <TableColumn editable="false" prefWidth="193.0" text="Telefone">
@@ -41,8 +42,8 @@
                   </TableColumn>
               </columns>
             </TableView>
-            <Button fx:id="botaoIncluir" layoutX="9.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Incluir" />
-            <Button fx:id="botaoAlterar" layoutX="150.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Alterar" />
+            <Button fx:id="botaoIncluir" layoutX="9.0" layoutY="171.0" mnemonicParsing="false" onAction="#botaoIncluir_Action" prefHeight="25.0" prefWidth="130.0" text="Incluir" />
+            <Button fx:id="botaoAlterar" layoutX="150.0" layoutY="171.0" mnemonicParsing="false" onAction="#botaoAlterar_Action" prefHeight="25.0" prefWidth="130.0" text="Alterar" />
             <Button fx:id="botaoExcluir" layoutX="288.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Excluir" />
          </children>
       </Pane>
@@ -78,12 +79,12 @@
                         <Insets />
                      </GridPane.margin>
                   </TextField>
-                  <Button fx:id="botaoSalvar" mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" text="Salvar" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button fx:id="botaoSalvar" mnemonicParsing="false" onAction="#botaoSalvar_Action" prefHeight="25.0" prefWidth="158.0" text="Salvar" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="botaoCancelar" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Cancelar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="botaoCancelar" mnemonicParsing="false" onAction="#boataoCancelar_Action" prefHeight="25.0" prefWidth="144.0" text="Cancelar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </content>
