@@ -104,6 +104,12 @@ public class MainController implements Initializable {
 		if (resultadoConfirmacao.isPresent() && resultadoConfirmacao.get() == ButtonType.OK) {
 			AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorio();
 			repositorioContato.excluir(this.contatoSelecionado);
+
+			Alert info = new Alert(AlertType.INFORMATION);
+			info.setTitle("Exclusão");
+			info.setHeaderText("Exclusão realizada com sucesso!");
+			info.show();
+
 			carregarTabelaContatos();
 			this.tabelaContatos.getSelectionModel().selectFirst();
 		}
