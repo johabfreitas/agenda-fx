@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import br.com.johabfreitas.agenda.entidades.Contato;
 import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorio;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,6 +45,26 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.tabelaContatos.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		habilitarEdicaoAgenda(false);
+//		this.tabelaContatos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Contato>() {
+//
+//			@Override
+//			public void changed(ObservableValue<? extends Contato> observable, Contato oldValue, Contato newValue) {
+//				if(newValue != null) {
+//					txfNome.setText(newValue.getNome());
+//					txfIdade.setText(String.valueOf(newValue.getIdade()));
+//					txfTelefone.setText(newValue.getTelefone());
+//				}				
+//			}
+//		});
+		this.tabelaContatos.getSelectionModel().selectedItemProperty().addListener((observador, contatoAntigo, contatoNovo) -> {
+			if(contatoNovo != null) {
+				txfNome.setText(contatoNovo.getNome());
+				txfIdade.setText(String.valueOf(contatoNovo.getIdade()));
+				txfTelefone.setText(contatoNovo.getTelefone());
+			}
+		});
+		
 		carregarTabelaContatos();
 
 	}
@@ -59,6 +81,18 @@ public class MainController implements Initializable {
 		}
 		ObservableList<Contato> contatosObervableList = FXCollections.observableArrayList(contatos);
 		this.tabelaContatos.getItems().setAll(contatosObervableList);
+	}
+	
+	private void habilitarEdicaoAgenda(Boolean edicaoEstaHabilitada) {
+		this.txfNome.setDisable(!edicaoEstaHabilitada);
+		this.txfIdade.setDisable(!edicaoEstaHabilitada);
+		this.txfTelefone.setDisable(!edicaoEstaHabilitada);
+		this.botaoSalvar.setDisable(!edicaoEstaHabilitada);
+		this.botaoCancelar.setDisable(!edicaoEstaHabilitada);
+		this.botaoIncluir.setDisable(edicaoEstaHabilitada);
+		this.botaoAlterar.setDisable(edicaoEstaHabilitada);
+		this.botaoExcluir.setDisable(edicaoEstaHabilitada);
+		this.tabelaContatos.setDisable(edicaoEstaHabilitada);
 	}
 
 }
