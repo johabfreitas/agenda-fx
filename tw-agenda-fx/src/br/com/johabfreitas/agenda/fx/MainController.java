@@ -1,6 +1,8 @@
 package br.com.johabfreitas.agenda.fx;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -96,14 +98,14 @@ public class MainController implements Initializable {
 		this.txfTelefone.setText(this.contatoSelecionado.getTelefone());
 	}
 
-	public void botaoExcluir_Action() {
+	public void botaoExcluir_Action() throws SQLException, IOException {
 		Alert confirmacao = new Alert(AlertType.CONFIRMATION);
 		confirmacao.setTitle("Confirmação");
 		confirmacao.setHeaderText("Confirmação da exclusão do contato");
 		confirmacao.setContentText("Tem certeza de que deseja excluir este contato?");
 		Optional<ButtonType> resultadoConfirmacao = confirmacao.showAndWait();
 		if (resultadoConfirmacao.isPresent() && resultadoConfirmacao.get() == ButtonType.OK) {
-			AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorio();
+			AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorioJdbc();
 			repositorioContato.excluir(this.contatoSelecionado);
 
 			Alert info = new Alert(AlertType.INFORMATION);
@@ -132,6 +134,7 @@ public class MainController implements Initializable {
 			if (this.ehIncluir) {
 				repositorioContato.inserir(contato);
 			} else {
+				contato.setId(contatoSelecionado.getId());
 				repositorioContato.atualizar(contato);
 			}
 			habilitarEdicaoAgenda(false);

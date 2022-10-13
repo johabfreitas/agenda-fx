@@ -19,18 +19,16 @@ public class ContatoRepositorioJdbc implements AgendaRepositorio<Contato> {
 	public List<Contato> selecionar() throws SQLException, IOException {
 //		Connection conexao = null;
 		List<Contato> contatos = new ArrayList<Contato>();
-		try (Connection conexao = FabricaConexaoJdbc.criarConexao()){
+		try (Connection conexao = FabricaConexaoJdbc.criarConexao()) {
 			/**
-			Properties props = new Properties();
-			InputStream is = this.getClass().getClassLoader().getResourceAsStream("application.properties");
-			if (is == null) {
-				throw new FileNotFoundException("O arquivo de configuração do banco de dados não foi encontrado!");
-			}
-			props.load(is);
-			conexao = DriverManager.getConnection(props.getProperty("urlConexao"), props.getProperty("usuarioConexao"),
-					props.getProperty("senhaConexao")); 
-			**/
-			
+			 * Properties props = new Properties(); InputStream is =
+			 * this.getClass().getClassLoader().getResourceAsStream("application.properties");
+			 * if (is == null) { throw new FileNotFoundException("O arquivo de configuração
+			 * do banco de dados não foi encontrado!"); } props.load(is); conexao =
+			 * DriverManager.getConnection(props.getProperty("urlConexao"),
+			 * props.getProperty("usuarioConexao"), props.getProperty("senhaConexao"));
+			 **/
+
 			Statement comando = conexao.createStatement();
 			ResultSet rs = comando.executeQuery("SELECT * FROM contatos");
 			while (rs.next()) {
@@ -41,39 +39,52 @@ public class ContatoRepositorioJdbc implements AgendaRepositorio<Contato> {
 				contato.setTelefone(rs.getString("telefone"));
 				contatos.add(contato);
 			}
-		} 
+		}
 
 		return contatos;
 	}
 
 	@Override
 	public void inserir(Contato entidade) throws IOException, SQLException {
-		Connection conexao = null;
-		try {
-			conexao = FabricaConexaoJdbc.criarConexao();
-			PreparedStatement comando = conexao.prepareStatement("INSERT INTO contatos (nome, idade, telefone)" + 
-																 "VALUES (?, ?, ?)");
+		// Connection conexao = null;
+		try (Connection conexao = FabricaConexaoJdbc.criarConexao()) {
+			// conexao = FabricaConexaoJdbc.criarConexao();
+			PreparedStatement comando = conexao
+					.prepareStatement("INSERT INTO contatos (nome, idade, telefone)" + "VALUES (?, ?, ?)");
 			comando.setString(1, entidade.getNome());
 			comando.setInt(2, entidade.getIdade());
 			comando.setString(3, entidade.getTelefone());
 			comando.execute();
-		} finally {
-			if(conexao != null) {
-				conexao.close();
-			}
 		}
+//		 finally {
+//			if(conexao != null) {
+//				conexao.close();
+//			}
+//		}
 
 	}
 
 	@Override
-	public void atualizar(Contato entidade) {
-		// TODO Auto-generated method stub
+	public void atualizar(Contato entidade) throws IOException, SQLException {
+		try (Connection conexao = FabricaConexaoJdbc.criarConexao()) {
+			PreparedStatement comando = conexao
+					.prepareStatement("UPDATE contatos SET nome = ?, idade = ?, telefone = ? WHERE id = ?");
 
+			comando.setString(1, entidade.getNome());
+			comando.setInt(2, entidade.getIdade());
+			comando.setString(3, entidade.getTelefone());
+			comando.setInt(4, entidade.getId());
+			comando.executeUpdate();
+		}
 	}
 
 	@Override
-	public void excluir(Contato entidade) {
-		// TODO Auto-generated method stub
+	public void excluir(Contato entidade) throws IOException, SQLException {
+		try(Connection conexao = FabricaConexaoJdbc.criarConexao()){
+			PreparedStatement comando = conexao.prepareStatement("DELETE FROM contatos WHERE id = ?");
+			comando.setInt(1, entidade.getId());
+			comando.executeUpdate();
+		}
 
 	}
 
