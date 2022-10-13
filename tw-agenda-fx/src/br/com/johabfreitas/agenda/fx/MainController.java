@@ -1,7 +1,6 @@
 package br.com.johabfreitas.agenda.fx;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -154,7 +153,7 @@ public class MainController implements Initializable {
 			**/
 			ObservableList<Contato> contatosObervableList = FXCollections.observableArrayList(contatos);
 			this.tabelaContatos.getItems().setAll(contatosObervableList);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			Alert mensagem = new Alert(AlertType.ERROR);
 			mensagem.setTitle("Error!");
 			mensagem.setHeaderText("Erro no banco de dados");
