@@ -1,27 +1,26 @@
 package br.com.johabfreitas.agenda.repositorios.impl;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import br.com.johabfreitas.agenda.entidades.Contato;
+import br.com.johabfreitas.agenda.fabricas.FabricaConexaoJdbc;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
 
 public class ContatoRepositorioJdbc implements AgendaRepositorio<Contato> {
 
 	@Override
 	public List<Contato> selecionar() throws SQLException, IOException {
-		Connection conexao = null;
+//		Connection conexao = null;
 		List<Contato> contatos = new ArrayList<Contato>();
-		try {
+		try (Connection conexao = FabricaConexaoJdbc.criarConexao()){
+			/**
 			Properties props = new Properties();
 			InputStream is = this.getClass().getClassLoader().getResourceAsStream("application.properties");
 			if (is == null) {
@@ -29,7 +28,9 @@ public class ContatoRepositorioJdbc implements AgendaRepositorio<Contato> {
 			}
 			props.load(is);
 			conexao = DriverManager.getConnection(props.getProperty("urlConexao"), props.getProperty("usuarioConexao"),
-					props.getProperty("senhaConexao"));
+					props.getProperty("senhaConexao")); 
+			**/
+			
 			Statement comando = conexao.createStatement();
 			ResultSet rs = comando.executeQuery("SELECT * FROM contatos");
 			while (rs.next()) {
@@ -40,18 +41,27 @@ public class ContatoRepositorioJdbc implements AgendaRepositorio<Contato> {
 				contato.setTelefone(rs.getString("telefone"));
 				contatos.add(contato);
 			}
-		} finally {
-			if (conexao != null) {
-				conexao.close();
-			}
-		}
+		} 
 
 		return contatos;
 	}
 
 	@Override
-	public void inserir(Contato entidade) {
-		// TODO Auto-generated method stub
+	public void inserir(Contato entidade) throws IOException, SQLException {
+		Connection conexao = null;
+		try {
+			conexao = FabricaConexaoJdbc.criarConexao();
+			PreparedStatement comando = conexao.prepareStatement("INSERT INTO contatos (nome, idade, telefone)" + 
+																 "VALUES (?, ?, ?)");
+			comando.setString(1, entidade.getNome());
+			comando.setInt(2, entidade.getIdade());
+			comando.setString(3, entidade.getTelefone());
+			comando.execute();
+		} finally {
+			if(conexao != null) {
+				conexao.close();
+			}
+		}
 
 	}
 

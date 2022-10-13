@@ -123,19 +123,27 @@ public class MainController implements Initializable {
 	}
 
 	public void botaoSalvar_Action() {
-		AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorio();
-		Contato contato = new Contato();
-		contato.setNome(txfNome.getText());
-		contato.setIdade(Integer.parseInt(txfIdade.getText()));
-		contato.setTelefone(txfTelefone.getText());
-		if (this.ehIncluir) {
-			repositorioContato.inserir(contato);
-		} else {
-			repositorioContato.atualizar(contato);
+		try {
+			AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorioJdbc();
+			Contato contato = new Contato();
+			contato.setNome(txfNome.getText());
+			contato.setIdade(Integer.parseInt(txfIdade.getText()));
+			contato.setTelefone(txfTelefone.getText());
+			if (this.ehIncluir) {
+				repositorioContato.inserir(contato);
+			} else {
+				repositorioContato.atualizar(contato);
+			}
+			habilitarEdicaoAgenda(false);
+			carregarTabelaContatos();
+			this.tabelaContatos.getSelectionModel().selectFirst();
+		} catch (Exception e) {
+			Alert mensagem = new Alert(AlertType.ERROR);
+			mensagem.setTitle("Error!");
+			mensagem.setHeaderText("Erro no banco de dados");
+			mensagem.setContentText("Houve um erro ao manipular o contato: " + e.getMessage());
+			mensagem.showAndWait();
 		}
-		habilitarEdicaoAgenda(false);
-		carregarTabelaContatos();
-		this.tabelaContatos.getSelectionModel().selectFirst();
 	}
 
 	private void carregarTabelaContatos() {
@@ -143,14 +151,10 @@ public class MainController implements Initializable {
 			AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorioJdbc();
 			List<Contato> contatos = repositorioContato.selecionar();
 			/**
-			if (contatos.isEmpty()) {
-				Contato contato = new Contato();
-				contato.setNome("Johab");
-				contato.setIdade(35);
-				contato.setTelefone("8499999-9999");
-				contatos.add(contato);
-			}
-			**/
+			 * if (contatos.isEmpty()) { Contato contato = new Contato();
+			 * contato.setNome("Johab"); contato.setIdade(35);
+			 * contato.setTelefone("8499999-9999"); contatos.add(contato); }
+			 **/
 			ObservableList<Contato> contatosObervableList = FXCollections.observableArrayList(contatos);
 			this.tabelaContatos.getItems().setAll(contatosObervableList);
 		} catch (Exception e) {
