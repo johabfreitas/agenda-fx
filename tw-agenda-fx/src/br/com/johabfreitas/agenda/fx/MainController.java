@@ -1,12 +1,14 @@
 package br.com.johabfreitas.agenda.fx;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import br.com.johabfreitas.agenda.entidades.Contato;
 import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorio;
+import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorioJdbc;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
 //import javafx.beans.value.ChangeListener;
 //import javafx.beans.value.ObservableValue;
@@ -138,17 +140,27 @@ public class MainController implements Initializable {
 	}
 
 	private void carregarTabelaContatos() {
-		AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorio();
-		List<Contato> contatos = repositorioContato.selecionar();
-		if (contatos.isEmpty()) {
-			Contato contato = new Contato();
-			contato.setNome("Johab");
-			contato.setIdade(35);
-			contato.setTelefone("8499999-9999");
-			contatos.add(contato);
+		try {
+			AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorioJdbc();
+			List<Contato> contatos = repositorioContato.selecionar();
+			/**
+			if (contatos.isEmpty()) {
+				Contato contato = new Contato();
+				contato.setNome("Johab");
+				contato.setIdade(35);
+				contato.setTelefone("8499999-9999");
+				contatos.add(contato);
+			}
+			**/
+			ObservableList<Contato> contatosObervableList = FXCollections.observableArrayList(contatos);
+			this.tabelaContatos.getItems().setAll(contatosObervableList);
+		} catch (SQLException e) {
+			Alert mensagem = new Alert(AlertType.ERROR);
+			mensagem.setTitle("Error!");
+			mensagem.setHeaderText("Erro no banco de dados");
+			mensagem.setContentText("Houve um erro ao obter a lista de contatos: " + e.getMessage());
+			mensagem.showAndWait();
 		}
-		ObservableList<Contato> contatosObervableList = FXCollections.observableArrayList(contatos);
-		this.tabelaContatos.getItems().setAll(contatosObervableList);
 	}
 
 	private void habilitarEdicaoAgenda(Boolean edicaoEstaHabilitada) {
