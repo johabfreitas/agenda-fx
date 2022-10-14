@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import br.com.johabfreitas.agenda.entidades.Contato;
-import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorio;
 import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorioJdbc;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
 //import javafx.beans.value.ChangeListener;
