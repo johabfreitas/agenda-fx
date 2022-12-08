@@ -2,8 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="resources"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/tw_agenda_entidades"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/tw_agenda_repositorios"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -55,5 +53,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/johab/Treinaweb/Formacao_Java/agenda-fx/lib/mysql-connector-j-8.0.31.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tw_agenda_repositorios"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tw_agenda_entidades"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tw_agenda_servicos"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

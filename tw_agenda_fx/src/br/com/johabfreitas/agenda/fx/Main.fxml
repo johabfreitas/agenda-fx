@@ -85,6 +85,7 @@
                      </GridPane.margin>
                   </Button>
                   <Button fx:id="botaoCancelar" mnemonicParsing="false" onAction="#boataoCancelar_Action" prefHeight="25.0" prefWidth="144.0" text="Cancelar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" onAction="#btnExportarContatos_Action" prefHeight="25.0" prefWidth="135.0" text="Exportar" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </content>

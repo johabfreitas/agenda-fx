@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import br.com.johabfreitas.agenda.entidades.Contato;
 import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorioJdbc;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
+import br.com.johabfreitas.agenda.servicos.impl.BufferedWriterServicoContato;
+import br.com.johabfreitas.agenda.servicos.interfaces.ServicoContato;
 //import javafx.beans.value.ChangeListener;
 //import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -178,6 +180,29 @@ public class MainController implements Initializable {
 		this.botaoAlterar.setDisable(edicaoEstaHabilitada);
 		this.botaoExcluir.setDisable(edicaoEstaHabilitada);
 		this.tabelaContatos.setDisable(edicaoEstaHabilitada);
+	}
+	
+	public void btnExportarContatos_Action() {
+		AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorioJdbc();
+		try {
+			List<Contato> contatos = repositorioContato.selecionar();
+			ServicoContato servicoContato = new BufferedWriterServicoContato();
+			servicoContato.exportar(contatos, "/home/johab/agenda.csv");
+			Alert mensagemSucesso = new Alert(AlertType.INFORMATION);
+			mensagemSucesso.setTitle("Sucesso");
+			mensagemSucesso.setHeaderText("Sucesso na exportação!");
+			mensagemSucesso.setContentText("Exportação concluída com êxito");
+			mensagemSucesso.show();
+		} catch (Exception e) {
+			Alert mensagem = new Alert(AlertType.ERROR);
+			mensagem.setTitle("Error!");
+			mensagem.setHeaderText("Erro ao acessar recursos externos ou ao criar a conexão com o banco.");
+			mensagem.setContentText("Houve um erro ao obter a lista de contatos: " + e.getMessage());
+			mensagem.showAndWait();
+		}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }
