@@ -16,7 +16,7 @@ public class BufferedWriterServicoContato implements ServicoContato {
 		// BufferedWrite (escrever) ---> FileWriter (apontador) ---> arquivo no HD
 		FileWriter fileWriter = new FileWriter(nomeArquivo);
 		try (BufferedWriter writer = new BufferedWriter(fileWriter)) {
-			List<String> dadosParaExportar = contatos.stream().map(contato -> String.format("%d;%s;%d;%s\n",
+			List<String> dadosParaExportar = contatos.stream().map(contato -> String.format("%d;%s;%d;%s",
 					contato.getId(), contato.getNome(), contato.getIdade(), contato.getTelefone()))
 					.collect(Collectors.toList());
 			
@@ -26,7 +26,10 @@ public class BufferedWriterServicoContato implements ServicoContato {
 			
 			for (String linha : dadosParaExportar) {
 				writer.write(linha);
+				writer.newLine(); //Quebra a linha
 			}
+			
+			writer.flush(); //descarrega o buffer
 		}
 
 	}
