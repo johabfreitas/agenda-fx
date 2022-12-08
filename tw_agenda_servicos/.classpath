@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/tw-agenda-entidades"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/tw-agenda-repositorios"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tw_agenda_entidades"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tw_agenda_repositorios"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
