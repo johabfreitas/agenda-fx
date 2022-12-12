@@ -13,6 +13,7 @@ import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
 import br.com.johabfreitas.agenda.servicos.impl.DataOutPutStreamServicoContato;
 import br.com.johabfreitas.agenda.servicos.impl.FileChannelServicoContato;
 import br.com.johabfreitas.agenda.servicos.impl.FileOutPutStreamServicoContato;
+import br.com.johabfreitas.agenda.servicos.impl.Java7ServicoContato;
 import br.com.johabfreitas.agenda.servicos.impl.PrintWriterServicoContato;
 import br.com.johabfreitas.agenda.servicos.interfaces.ServicoContato;
 //import javafx.beans.value.ChangeListener;
@@ -189,7 +190,7 @@ public class MainController implements Initializable {
 		AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorioJdbc();
 		try {
 			List<Contato> contatos = repositorioContato.selecionar();
-			ServicoContato servicoContato = new FileChannelServicoContato();
+			ServicoContato servicoContato = new Java7ServicoContato();
 			servicoContato.exportar(contatos, "/home/johab/agenda.csv");
 			Alert mensagemSucesso = new Alert(AlertType.INFORMATION);
 			mensagemSucesso.setTitle("Sucesso");
