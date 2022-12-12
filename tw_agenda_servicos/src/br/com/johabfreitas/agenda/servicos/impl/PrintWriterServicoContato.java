@@ -15,7 +15,7 @@ public class PrintWriterServicoContato implements ServicoContato {
 		// PrintWriter (escreve o conteúdo) --> FileWriter (caminho para o arquivo) -->
 		// arquivo em si
 		try (FileWriter fileWriter = new FileWriter(nomeArquivo)) {
-			try (PrintWriter printWriter = new PrintWriter(fileWriter)) {
+			try (PrintWriter printWriter = new PrintWriter(fileWriter, true)) {
 				for (Contato contato : contatos) {
 					printWriter.println(String.format("%d;%s;%d;%s", contato.getId(), contato.getNome(),
 							contato.getIdade(), contato.getTelefone()));

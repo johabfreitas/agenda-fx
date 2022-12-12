@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 import br.com.johabfreitas.agenda.entidades.Contato;
 import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorioJdbc;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
-import br.com.johabfreitas.agenda.servicos.impl.BufferedWriterServicoContato;
 import br.com.johabfreitas.agenda.servicos.impl.PrintWriterServicoContato;
 import br.com.johabfreitas.agenda.servicos.interfaces.ServicoContato;
 //import javafx.beans.value.ChangeListener;
