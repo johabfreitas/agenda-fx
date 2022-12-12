@@ -1,4 +1,4 @@
-package br.com.johabfreitas.agenda.servicos.impl;
+package br.com.johabfreitas.agenda.servicos.impl.exportadores;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.johabfreitas.agenda.entidades.Contato;
-import br.com.johabfreitas.agenda.servicos.interfaces.ServicoContato;
+import br.com.johabfreitas.agenda.servicos.interfaces.ServicoExportadorContato;
 
-public class FileOutPutStreamServicoContato implements ServicoContato {
+public class FileOutPutStreamServicoContato implements ServicoExportadorContato {
 
 	@Override
 	public void exportar(List<Contato> contatos, String nomeArquivo) throws IOException {
