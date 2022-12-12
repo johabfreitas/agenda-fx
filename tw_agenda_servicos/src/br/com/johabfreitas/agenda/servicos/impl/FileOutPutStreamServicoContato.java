@@ -15,7 +15,7 @@ public class FileOutPutStreamServicoContato implements ServicoContato {
 		try (FileOutputStream fileStream = new FileOutputStream(nomeArquivo)){
 			List<String> dados  = contatos.stream()
 					.map(contato -> String.format("%d;%s;%d;%s\n", contato.getId(),
-						contato.getNome(), contato.getIdade(), contato.getNome())).collect(Collectors.toList());
+						contato.getNome(), contato.getIdade(), contato.getTelefone())).collect(Collectors.toList());
 			for(String dado: dados) {
 				fileStream.write(dado.getBytes());
 			}
