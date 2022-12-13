@@ -12,6 +12,7 @@ import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorioJdbc;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
 import br.com.johabfreitas.agenda.servicos.impl.exportadores.FileChannelServicoContato;
 import br.com.johabfreitas.agenda.servicos.impl.importadores.BufferedReaderServicoContatoImportador;
+import br.com.johabfreitas.agenda.servicos.impl.importadores.Java7ServicoContatoImportador;
 import br.com.johabfreitas.agenda.servicos.interfaces.ServicoExportadorContato;
 import br.com.johabfreitas.agenda.servicos.interfaces.ServicoImportadorContato;
 //import javafx.beans.value.ChangeListener;
@@ -208,7 +209,7 @@ public class MainController implements Initializable {
 	public void btnImportarContatos_Action() {
 		AgendaRepositorio<Contato> repositorioContato = new ContatoRepositorioJdbc();
 		try {
-			ServicoImportadorContato importador = new BufferedReaderServicoContatoImportador();
+			ServicoImportadorContato importador = new Java7ServicoContatoImportador();
 			importador.importar("/home/johab/agenda.csv", repositorioContato);
 			Alert mensagemSucesso = new Alert(AlertType.INFORMATION);
 			mensagemSucesso.setTitle("Sucesso");
