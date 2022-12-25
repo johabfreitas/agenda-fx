@@ -11,7 +11,6 @@ import br.com.johabfreitas.agenda.entidades.Contato;
 import br.com.johabfreitas.agenda.repositorios.impl.ContatoRepositorioJdbc;
 import br.com.johabfreitas.agenda.respositorios.interfaces.AgendaRepositorio;
 import br.com.johabfreitas.agenda.servicos.impl.exportadores.FileChannelServicoContato;
-import br.com.johabfreitas.agenda.servicos.impl.importadores.BufferedReaderServicoContatoImportador;
 import br.com.johabfreitas.agenda.servicos.impl.importadores.Java7ServicoContatoImportador;
 import br.com.johabfreitas.agenda.servicos.interfaces.ServicoExportadorContato;
 import br.com.johabfreitas.agenda.servicos.interfaces.ServicoImportadorContato;
