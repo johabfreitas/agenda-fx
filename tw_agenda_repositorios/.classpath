@@ -7,6 +7,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/johab/agenda-fx/lib/arquivos_jars_para_config/mysql-connector-j-8.0.31.jar"/>
+	<classpathentry kind="lib" path="/home/johab/Treinaweb/Formacao_Java/agenda-fx/lib/mysql-connector-j-8.0.31.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
