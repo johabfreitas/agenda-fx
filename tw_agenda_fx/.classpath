@@ -56,5 +56,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/johab/Treinaweb/Formacao_Java/agenda-fx/lib/mysql-connector-j-8.0.31.jar"/>
+	<classpathentry kind="lib" path="/home/johab/Treinaweb/Formacao_Java/agenda-fx/lib/taglibs-standard-jstlel-1.2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
